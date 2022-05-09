@@ -15,7 +15,7 @@ jobs:
     steps:
     # checkout the repositry to the github action runner
       - name: checkout  
-        uses: actions/checkout@v2
+        uses: actions/checkout@v1
         
     # install the latest version of terraform CLI and configure the terraform CLI configure file with terraform Cloud user API token
      - name: Setup Terraform
