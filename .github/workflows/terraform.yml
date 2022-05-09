@@ -1,0 +1,47 @@
+name: 'Terraform'
+
+on:
+  workflow_dispatch:
+
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: 'ubuntu-latest'
+    enviorment: production
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    -name: checkout
+     uses: actions/checkout@v1
+
+#install the latest version of terraform
+    -name: Setup Terraform
+     uses: hashicorp/setup-terraform@v1
+     with:
+     cli_config_credentials_token: ${{secret.TF_API_TOKEN}}
+
+    -name: Terraform init
+     run: terraform init
+
+     #format check in conical form
+    -name: Terraform Format
+     run: terraform fmt -check
+
+     #configuring AWS creditials
+     -name: configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-key-id: ${{secrets.AWS_SECRET_KEY_ID }}
+        aws-region: ap-south-1
+
+     #generaeta a plan command
+     -name: Terraform Plan
+      run: terraform plan
+
+    #generate a apply command
+    -name: Terraform Apply
+     run: terraform apply  
