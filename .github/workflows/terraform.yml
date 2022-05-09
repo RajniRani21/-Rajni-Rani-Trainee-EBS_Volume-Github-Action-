@@ -15,7 +15,7 @@ jobs:
 
     steps:
     -name: checkout
-     uses: actions/checkout@v1
+     uses: actions/checkout@v2
 
 #install the latest version of terraform
     -name: Setup Terraform
@@ -45,4 +45,4 @@ jobs:
     #generate a apply command
     -name: Terraform Apply
     if:github.ref == 'refs/heads/main' && github.event_name == 'push'
-     run: terraform apply -auto-approv
+     run: terraform apply -auto-approve
