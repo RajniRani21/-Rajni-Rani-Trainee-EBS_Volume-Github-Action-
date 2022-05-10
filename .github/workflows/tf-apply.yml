@@ -39,8 +39,8 @@ jobs:
 
     - name: Terraform validate
       run: |
-      cd Example
-      terraform validate -no-color
+        cd Example
+        terraform validate -no-color
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: |
