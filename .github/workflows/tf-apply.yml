@@ -37,8 +37,8 @@ jobs:
         cd Example 
         terraform init -reconfigure -backend-config="bucket=$BUCKET" -backend-config="key=$TFSTATE_FILE"
 
-    -name: Terraform validate
-     run: |
+    - name: Terraform validate
+      run: |
       cd Example
       terraform validate -no-color
     # Generates an execution plan for Terraform
