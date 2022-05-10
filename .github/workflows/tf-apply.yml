@@ -5,7 +5,7 @@ on:
   
 env:
   BUCKET: ebs-rajni
-  TFTATE_FILE: ebs.tfstate
+  TFTATE_FILE: rajniebs.tfstate
 jobs:
   terraform:
     name: 'terraform'
@@ -38,10 +38,11 @@ jobs:
         cd Example 
         terraform init -reconfigure -backend-config="bucket=$BUCKET" -backend-config="key=$TFSTATE_FILE"
 
-    #- name: Terraform validate
-      #run: |
-        #cd Example
-        #terraform validate -no-color
+    - name: Terraform validate
+      run: |
+        cd Example
+        terraform validate -no-color
+
     - name: Terraform Plan
       run: |
         cd Example
