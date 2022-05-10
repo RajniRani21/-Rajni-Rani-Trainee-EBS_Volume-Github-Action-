@@ -6,15 +6,15 @@ env:
   BUCKET: "ebs-rajni" 
   TFTATE_FILE: "ec2.tfstate"
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   terraform:
     name: 'terraform'
     runs-on: ubuntu-latest
     #environment: production
-    
-defaults:
-  run:
-    shell: bash
 
     steps:
       - name: checkout
