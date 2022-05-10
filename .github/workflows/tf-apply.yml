@@ -3,11 +3,15 @@ name: 'main'
 on:
   workflow_dispatch:
   
+env:
+  BUCKET: "ebs-rajni" 
+  TFTATE_FILE: "ec2.tfstate"
+
 jobs:
   terraform:
     name: terraform
     runs-on: ubuntu-latest
-    environment: production
+    #environment: production
     
     defaults:
       run:
@@ -23,28 +27,29 @@ jobs:
        with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
        
-    #checks the format canonical format
-    #- name: Terraform Format
-    #  run: terraform fmt -check
-    
     #configure aws_credentials
      - name: configure AWS Credentials
        uses: aws-actions/configure-aws-credentials@v1
        with:
-         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }} 
     # if you have/need it     
         aws-region: ap-south-1
 
+
 # Initialize command in terraform
      - name: Terraform Init
-       run : terraform init
+       run : |
+         cd Example 
 
     # Generates an execution plan for Terraform
      - name: Terraform Plan
-       run: terraform plan
+       run: |
+         cd Example
     #Generate an execution apply for terraform   
      - name: Terraform Apply
-       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-       run: terraform apply -auto-approve
+       #if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+       run: |
+         cd Example
+         terraform apply -auto-approve
