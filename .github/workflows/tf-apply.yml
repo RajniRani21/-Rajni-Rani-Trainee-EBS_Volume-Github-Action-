@@ -46,8 +46,8 @@ jobs:
         cd Example
         terraform plan -no-color
     #Generate an execution apply for terraform   
-      - name: Terraform Apply
+    - name: Terraform Apply
        #if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: |
-          cd Example
-          terraform apply -auto-approve
+      run: |
+        cd Example
+        terraform apply -auto-approve
