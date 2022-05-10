@@ -5,7 +5,7 @@ on:
   
 env:
   BUCKET: ebs-rajni
-  TFTATE_FILE: rajniebs.tfstate
+  TFSTATE_FILE: rajniebs.tfstate
 jobs:
   terraform:
     name: 'terraform'
