@@ -1,4 +1,4 @@
-name: tf-apply
+name: tf-destroy
 
 on:
   workflow_dispatch:
@@ -32,23 +32,13 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}     
         aws-region: ap-south-1
-        
+
     - name: Terraform Init
       run : |
         cd Example 
         terraform init -reconfigure -backend-config="bucket=$BUCKET" -backend-config="key=$TFSTATE_FILE"
 
-    - name: Terraform validate
+    - name: Terraform Destroy
       run: |
         cd Example
-        terraform validate -no-color
-    - name: Terraform Plan
-      run: |
-        cd Example
-        terraform plan -no-color
-    #Generate an execution apply for terraform   
-    - name: Terraform Apply
-       #if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: |
-        cd Example
-        terraform apply -auto-approve
+        terraform destroy -auto-approve
